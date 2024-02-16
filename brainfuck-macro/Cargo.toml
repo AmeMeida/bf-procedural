@@ -1,15 +1,12 @@
 [package]
-name = "bf-procedural"
+name = "brainfuck-macro"
 version = "0.1.0"
 edition = "2021"
 
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
-[workspace]
-members = [
-    "brainfuck",
-    "brainfuck-macro"
-]
+[lib]
+proc-macro = true
 
 [dependencies]
-brainfuck-macro ={ path = "./brainfuck-macro" }
+brainfuck = { path = "../brainfuck" }

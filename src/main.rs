@@ -1,3 +1,5 @@
+mod tests;
+
 fn main() {
-    println!("Hello, world!");
+    // let teste = [1, 2, 3];
 }

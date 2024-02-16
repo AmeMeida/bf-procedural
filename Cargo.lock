@@ -5,3 +5,17 @@ version = 3
 [[package]]
 name = "bf-procedural"
 version = "0.1.0"
+dependencies = [
+ "brainfuck-macro",
+]
+
+[[package]]
+name = "brainfuck"
+version = "0.1.0"
+
+[[package]]
+name = "brainfuck-macro"
+version = "0.1.0"
+dependencies = [
+ "brainfuck",
+]
