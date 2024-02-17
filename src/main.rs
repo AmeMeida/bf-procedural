@@ -1,5 +1,14 @@
+use brainfuck::brainfuck::Brainfuck;
+
 mod tests;
 
 fn main() {
-    // let teste = [1, 2, 3];
+    let mut bf = Brainfuck::new();
+
+    match bf.run("+++>++") {
+        Ok(text) => text,
+        Err(err) => panic!("{}", err)
+    };
+
+    println!("{:?}", bf.tape());   
 }

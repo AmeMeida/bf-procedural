@@ -13,10 +13,25 @@ pub enum Token {
 #[derive(Debug)]
 pub enum Unit {
     Token(Token),
-    Loop(Vec<Unit>),
+    Loop(BfInstructions),
 }
 
-pub fn tokenize(bf_string: String) -> Result<Vec<Unit>, InvalidTokenError> {
+#[derive(Debug)]
+pub struct BfInstructions(Vec<Unit>);
+
+impl BfInstructions {
+    pub fn new(bf_string: &str) -> Result<Self, InvalidTokenError> {
+        let array = tokenize(bf_string)?;
+
+        Ok(BfInstructions(array))
+    }
+
+    pub fn instructions(&self) -> &[Unit] {
+        &self.0
+    }
+}
+
+pub fn tokenize(bf_string: &str) -> Result<Vec<Unit>, InvalidTokenError> {
     let mut tree: Vec<Unit> = Vec::new();
 
     let tokens: Vec<char> = bf_string.chars().collect();
@@ -48,8 +63,8 @@ pub fn tokenize(bf_string: String) -> Result<Vec<Unit>, InvalidTokenError> {
                     }
                 }
 
-                let loop_slice = String::from(&bf_string[position..closing]);
-                tree.push(Unit::Loop(tokenize(loop_slice)?));
+                let loop_slice = &bf_string[position..closing];
+                tree.push(Unit::Loop(BfInstructions::new(loop_slice)?));
 
                 position = closing;
             },

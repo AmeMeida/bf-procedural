@@ -5,8 +5,6 @@ use brainfuck_macro::parse_bf;
 fn it_works() {
     let tape = parse_bf!(>+>>++++<-->>>+++++[>++<-]+>+).0;
 
-    println!("{:?}", tape);
-
     assert_eq!(tape, [0, 1, 254, 4, 0, 1, 11]);
 
     assert_eq!(tape[1], 1);
@@ -14,6 +12,13 @@ fn it_works() {
     assert_eq!(tape[3], 4);
     assert_eq!(tape[5], 1);
     assert_eq!(tape[6], 11);
+}
+
+#[test]
+fn nested_loops() {
+    let tape = parse_bf!(++++[>+++[>++<-]<-]).0;
+
+    assert_eq!(tape[2], 24);
 }
 
 #[test]

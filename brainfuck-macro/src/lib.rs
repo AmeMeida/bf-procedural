@@ -7,7 +7,7 @@ pub fn parse_bf(bf_stream: TokenStream) -> TokenStream {
 
     let mut bf = Brainfuck::new();
 
-    let output = match bf.run(bf_string) {
+    let output = match bf.run(&bf_string) {
         Ok(result) => result,
         Err(invalid_token) => {
             return format!(

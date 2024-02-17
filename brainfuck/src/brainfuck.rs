@@ -1,7 +1,7 @@
 use std::{io, num::Wrapping};
 
 use crate::{
-    parser::{tokenize, Token, Unit},
+    parser::{BfInstructions, Token, Unit},
     InvalidTokenError,
 };
 
@@ -68,15 +68,16 @@ impl Brainfuck {
         self.tape.iter().map(|num| num.0).collect()
     }
 
-    pub fn run(&mut self, commands: String) -> Result<String, InvalidTokenError> {
-        let token_tree = tokenize(commands)?;
-        Ok(self.execute(&token_tree))
+    pub fn run(&mut self, commands: &str) -> Result<String, InvalidTokenError> {
+        let instructions = BfInstructions::new(commands)?;
+
+        Ok(self.execute(&instructions))
     }
 
-    fn execute(&mut self, commands: &Vec<Unit>) -> String {
+    pub fn execute(&mut self, commands: &BfInstructions) -> String {
         let mut output = String::new();
 
-        for token in commands {
+        for token in commands.instructions() {
             match token {
                 Unit::Token(Token::Left) => self.left(),
                 Unit::Token(Token::Right) => self.right(),
@@ -86,7 +87,7 @@ impl Brainfuck {
                 Unit::Token(Token::Read) => self.read(),
                 Unit::Loop(tokens) => {
                     while self.tape[self.pointer.0 as usize].0 != 0 {
-                        self.execute(tokens);
+                        self.execute(&tokens);
                     }
                 }
             }

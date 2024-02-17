@@ -12,4 +12,5 @@ members = [
 ]
 
 [dependencies]
-brainfuck-macro ={ path = "./brainfuck-macro" }
+brainfuck-macro = { path = "./brainfuck-macro" }
+brainfuck = { path = "./brainfuck" }

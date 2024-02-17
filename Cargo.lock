@@ -6,6 +6,7 @@ version = 3
 name = "bf-procedural"
 version = "0.1.0"
 dependencies = [
+ "brainfuck",
  "brainfuck-macro",
 ]
 
